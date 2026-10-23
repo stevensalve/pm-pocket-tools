@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>RAID Log - risks, assumptions, issues, dependencies (offline)</title>
+    <meta
+      name="description"
+      content="Track risks, assumptions, issues and dependencies with owners, scores and due dates. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>RAID Log</h1>
+          <p>Risks, assumptions, issues and dependencies in one place.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-sum">
+        <h2 id="h-sum">Where things stand</h2>
+        <div class="stats" id="stats"></div>
+        <p id="breakdown"></p>
+      </section>
+
+      <section class="card noprint" aria-labelledby="h-new">
+        <h2 id="h-new">Add an item</h2>
+        <div class="grid">
+          <div>
+            <label for="n-type">Type</label
+            ><select id="n-type"></select>
+          </div>
+          <div><label for="n-title">What is it</label><input type="text" id="n-title" maxlength="140" /></div>
+          <div><label for="n-owner">Owner</label><input type="text" id="n-owner" maxlength="60" /></div>
+          <div><label for="n-p">Probability (1-5)</label><input type="number" id="n-p" min="1" max="5" value="3" /></div>
+          <div><label for="n-i">Impact (1-5)</label><input type="number" id="n-i" min="1" max="5" value="3" /></div>
+          <div><label for="n-due">Due / review by</label><input type="date" id="n-due" /></div>
+          <div><label for="n-raised">Raised on</label><input type="date" id="n-raised" /></div>
+          <div><label for="n-action">Mitigation / action</label><input type="text" id="n-action" maxlength="300" /></div>
+        </div>
+        <p class="hint">Probability and impact apply to risks and issues only. Score 15 or more is High, 8 to 14 Medium.</p>
+        <div class="row">
+          <button class="primary" id="add" type="button">Add to log</button><button id="demo" type="button">Load sample data</button>
+        </div>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-list">
+        <h2 id="h-list">The log</h2>
+        <div class="grid noprint">
+          <div><label for="f-text">Search</label><input type="search" id="f-text" /></div>
+          <div>
+            <label for="f-type">Type</label
+            ><select id="f-type"></select>
+          </div>
+          <div>
+            <label for="f-status">Status</label
+            ><select id="f-status"></select>
+          </div>
+          <div>
+            <label for="f-level">Level</label
+            ><select id="f-level">
+              <option value="">All levels</option>
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+          </div>
+          <div>
+            <label class="inline"><input type="checkbox" id="f-open" /> Open only</label>
+          </div>
+          <div>
+            <label class="inline"><input type="checkbox" id="f-over" /> Overdue only</label>
+          </div>
+        </div>
+        <div class="table-wrap"><table id="t-log"></table></div>
+        <p class="hint" id="empty" hidden>No items match.</p>
+        <div class="row noprint">
+          <button id="csv" type="button">Download CSV</button>
+          <button id="print" type="button">Print</button>
+          <button id="save" type="button">Save log (.json)</button>
+          <label class="file">Open saved log<input type="file" id="open-file" accept=".json,application/json" /></label>
+        </div>
+        <p class="hint noprint">Nothing is stored in the browser. Save the log to a file and open it next time.</p>
+        <p class="status" id="out-status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed</footer>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

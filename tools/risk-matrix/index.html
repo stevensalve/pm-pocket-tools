@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Risk Heat Map - 5x5 matrix from your risk list (offline)</title>
+    <meta
+      name="description"
+      content="Load a risk list from Excel or CSV and see a 5x5 probability and impact heat map, the top risks and what mitigation achieves. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Risk Heat Map</h1>
+          <p>From a risk list to a picture in one drop.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card noprint" aria-labelledby="h-in">
+        <h2 id="h-in">1. Load your risks</h2>
+        <label class="dropzone" id="drop"
+          >Drop an Excel or CSV risk list here, or click to choose<input type="file" id="file" accept=".xlsx,.xls,.csv,.tsv"
+        /></label>
+        <p class="hint">
+          Columns it understands: Risk, Probability, Impact (1-5 or Very low to Very high), Owner, Category, Mitigation, Status, and
+          optionally Residual Probability and Residual Impact. Closed risks are left off the map.
+        </p>
+        <div class="row"><button id="demo" type="button">Try sample risks</button></div>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-map">
+        <h2 id="h-map">2. Heat map</h2>
+        <div class="stats" id="stats"></div>
+        <div class="two-heat">
+          <div>
+            <h3>Before mitigation</h3>
+            <table class="heat" id="t-inh" aria-label="Heat map before mitigation"></table>
+          </div>
+          <div id="res-box" hidden>
+            <h3>After mitigation</h3>
+            <table class="heat" id="t-res" aria-label="Heat map after mitigation"></table>
+          </div>
+        </div>
+        <p class="hint">
+          Numbers in a cell are risk numbers from the table below. Rows are probability (5 at the top), columns are impact.
+        </p>
+        <p id="narrative"></p>
+        <h3>Risks, highest first</h3>
+        <div class="table-wrap"><table id="t-list"></table></div>
+        <div class="row noprint"><button id="csv" type="button">Download CSV</button><button id="print" type="button">Print</button></div>
+        <p class="status" id="out-status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed - <a href="vendor/README.md">SheetJS</a></footer>
+    </main>
+    <script src="vendor/xlsx.full.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
